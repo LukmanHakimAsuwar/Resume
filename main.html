@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lukman Hakim · Demon Slayer CV</title>
+    <!-- Font & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif JP', 'Inter', serif;
+            background: #0c0a0a;
+            background-image: radial-gradient(circle at 20% 30%, #1e1410 0%, #0a0707 80%);
+            color: #e3dcd2;
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+
+        /* Kimetsu no Yaiba inspired background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.04"><path d="M20 20 L30 10 L40 20 L30 30 Z" fill="%23d4a373"/><path d="M70 70 L80 60 L90 70 L80 80 Z" fill="%23d4a373"/><path d="M45 45 L55 35 L65 45 L55 55 Z" fill="%23b5835a"/><circle cx="15" cy="85" r="4" fill="%23a6634b"/><circle cx="90" cy="15" r="6" fill="%23945e4a"/></svg>');
+            background-repeat: repeat;
+            background-size: 180px 180px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* particle canvas (embers) */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* card – demon slayer style */
+        .card {
+            background: rgba(18, 14, 12, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 2rem 0.5rem 2rem 0.5rem;
+            box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(180, 120, 80, 0.2);
+            border-left: 3px solid #b8734a;
+            border-right: 1px solid #3f2a1e;
+            padding: 2rem 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.2s ease;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(184, 115, 74, 0.3);
+            padding-bottom: 0.6rem;
+        }
+
+        .card-header i {
+            font-size: 1.8rem;
+            color: #d4a373;
+            background: rgba(212, 163, 115, 0.08);
+            padding: 0.4rem 0.7rem;
+            border-radius: 12px;
+            border: 1px solid #6f4a32;
+        }
+
+        .card-header h2 {
+            font-weight: 600;
+            font-size: 1.6rem;
+            letter-spacing: 0.04em;
+            color: #ebd6c0;
+            text-shadow: 0 0 6px #7a4d2e40;
+        }
+
+        .card-header .sub {
+            font-weight: 300;
+            font-size: 0.9rem;
+            color: #a67c5b;
+            margin-left: 0.3rem;
+        }
+
+        /* profile */
+        .profile-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem 3rem;
+        }
+
+        .avatar-placeholder {
+            background: radial-gradient(circle at 30% 30%, #4f3222, #1f130e);
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: #d4a373;
+            box-shadow: 0 0 0 2px #b8734a, 0 12px 28px -4px #0a0604;
+            border: 2px solid #2d1b12;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .avatar-placeholder i {
+            filter: drop-shadow(0 0 6px #d68f5c);
+        }
+        .avatar-placeholder::after {
+            content: '◆';
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            font-size: 1.4rem;
+            color: #b8734a;
+            opacity: 0.5;
+        }
+
+        .name-title h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: #f5e3d0;
+            text-shadow: 0 2px 10px #2f1d12;
+            margin-bottom: 0.2rem;
+        }
+        .name-title h1 .water {
+            font-weight: 300;
+            font-size: 1.6rem;
+            color: #b0876a;
+        }
+
+        .name-title .badge {
+            background: #2f1d12;
+            color: #d4a373;
+            padding: 0.3rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: 1px solid #6f4a32;
+            display: inline-block;
+            margin-top: 0.2rem;
+            letter-spacing: 0.04em;
+        }
+
+        .contact-mini {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.6rem;
+            margin-top: 0.8rem;
+        }
+
+        .contact-mini span {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            background: rgba(30, 20, 15, 0.7);
+            padding: 0.3rem 1.2rem 0.3rem 0.9rem;
+            border-radius: 40px;
+            border: 1px solid #4d3324;
+            backdrop-filter: blur(4px);
+        }
+
+        .contact-mini i {
+            width: 1.4rem;
+            color: #d4a373;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .profile-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 0.8rem;
+            margin-top: 0.4rem;
+        }
+
+        .skill-tag {
+            background: rgba(30, 20, 16, 0.8);
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #d8c3b0;
+            border: 1px solid #5f3f2b;
+            backdrop-filter: blur(4px);
+            box-shadow: inset 0 1px 0 #6f4a3220;
+            letter-spacing: 0.02em;
+        }
+
+        .skill-tag i {
+            margin-right: 6px;
+            font-size: 0.75rem;
+            color: #d4a373;
+        }
+
+        .lang-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(30, 20, 15, 0.7);
+            padding: 0.2rem 1.2rem 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-weight: 400;
+            border: 1px solid #4d3324;
+        }
+
+        .exp-item {
+            margin-bottom: 1.6rem;
+            border-left: 2px solid #6f4a32;
+            padding-left: 1rem;
+        }
+
+        .exp-item h4 {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #ebd6c0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .exp-item .meta {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #b0876a;
+            background: rgba(60, 40, 28, 0.6);
+            padding: 0.1rem 0.9rem;
+            border-radius: 30px;
+            border: 1px solid #4d3324;
+            letter-spacing: 0.02em;
+        }
+
+        .exp-item ul {
+            padding-left: 1.2rem;
+            margin-top: 0.4rem;
+            list-style-type: '✦ ';
+            color: #cfbcaa;
+        }
+
+        .exp-item ul li {
+            margin-bottom: 0.2rem;
+            font-size: 0.92rem;
+            padding-left: 0.3rem;
+        }
+
+        .profile-text {
+            font-size: 1rem;
+            color: #d8c3b0;
+            background: rgba(25, 17, 13, 0.6);
+            padding: 1rem 1.4rem;
+            border-radius: 16px;
+            border-left: 4px solid #b8734a;
+            backdrop-filter: blur(4px);
+            box-shadow: inset 0 0 20px #0c080620;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #8a6d58;
+            opacity: 0.7;
+            margin-top: 1rem;
+            letter-spacing: 0.4px;
+            border-top: 1px solid #3f2a1e;
+            padding-top: 1.5rem;
+        }
+
+        /* reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.15, 0.9, 0.25, 1), transform 0.8s cubic-bezier(0.15, 0.9, 0.25, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            border-left-color: #d4a373;
+            box-shadow: 0 0 30px -8px #2f1d1240;
+        }
+
+        i.fa-ghost,
+        i.fa-japanese-flag {
+            filter: drop-shadow(0 0 4px #d68f5c);
+        }
+
+        .badge i {
+            margin-right: 6px;
+        }
+
+        .education-item {
+            background: rgba(30, 20, 15, 0.5);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 3px solid #b8734a;
+            margin-bottom: 0.8rem;
+        }
+        .education-item strong {
+            color: #ebd6c0;
+        }
+        .education-item .date {
+            font-size: 0.8rem;
+            color: #b0876a;
+            font-weight: 400;
+            margin-left: 0.5rem;
+        }
+        .education-item .school {
+            font-size: 0.9rem;
+            color: #cfbcaa;
+            display: block;
+            margin-top: 0.2rem;
+        }
+
+        .demon-icon {
+            color: #d4a373;
+            margin-right: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- particle canvas (embers) -->
+    <canvas id="particles-canvas"></canvas>
+
+    <div class="container">
+        <!-- PROFILE CARD -->
+        <div class="card reveal">
+            <div class="profile-row">
+                <div class="avatar-placeholder">
+                    <i class="fas fa-user-ninja"></i>
+                </div>
+                <div class="name-title">
+                    <h1>LUKMAN HAKIM <span class="water">· Water</span></h1>
+                    <span class="badge"><i class="fas fa-microchip"></i> Electronic Technician · AI Seeker</span>
+                    <div class="contact-mini">
+                        <span><i class="fas fa-phone-alt"></i> 016-7932113</span>
+                        <span><i class="fas fa-envelope"></i> lukmanasuwar00@gmail.com</span>
+                        <span><i class="fas fa-map-pin"></i> Butterworth, Penang</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROFILE + SKILLS -->
+        <div class="grid-2col reveal">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-ghost"></i>
+                    <h2>Profile <span class="sub">· Soul</span></h2>
+                </div>
+                <div class="profile-text">
+                    <i class="fas fa-quote-left" style="opacity:0.2; margin-right:6px; color:#d4a373;"></i>
+                    Strong academic and technical knowledge across IT, Software Engineering, Programming, Database, Data Mining and Artificial Intelligence (AI). Recognized as a passionate AI learner and researcher coupled with multi-tasking abilities. Love to work in a team and friendly environment and can be counted upon in completing tasks within set timeframe.
+                </div>
+                <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; border-top: 1px solid #2d1b12; padding-top: 1rem;">
+                    <div><i class="fas fa-graduation-cap" style="color:#d4a373;"></i> <strong>Education</strong><br>
+                        <span style="font-size:0.9rem; color:#cfbcaa;">2024-2028 · Degree Electronic System, UniMAP</span><br>
+                        <span style="font-size:0.9rem; color:#cfbcaa;">2017-2022 · Diploma Electronic, KV Nibong Tebal</span>
+                    </div>
+                    <div><i class="fas fa-briefcase" style="color:#d4a373;"></i> <strong>Experience</strong><br>
+                        <span style="font-size:0.9rem; color:#cfbcaa;">3+ years · PIE / Manufacturing</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-cog"></i>
+                    <h2>Skills & Languages</h2>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; color:#d4a373;"><i class="fas fa-tools"></i> <strong>Technical</strong></div>
+                        <div class="skill-tags">
+                            <span class="skill-tag"><i class="fas fa-microchip"></i> Circuit Assembly</span>
+                            <span class="skill-tag"><i class="fas fa-file-word"></i> Microsoft Word</span>
+                            <span class="skill-tag"><i class="fas fa-project-diagram"></i> Multisim</span>
+                            <span class="skill-tag"><i class="fas fa-code-branch"></i> Proteus</span>
+                            <span class="skill-tag"><i class="fas fa-rocket"></i> Fast Learner</span>
+                            <span class="skill-tag"><i class="fas fa-arrows-alt-h"></i> Process Flows</span>
+                            <span class="skill-tag"><i class="fas fa-brain"></i> AI / Data Mining</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; color:#d4a373;"><i class="fas fa-globe-asia"></i> <strong>Languages</strong></div>
+                        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                            <span class="lang-item"><i class="fas fa-check-circle" style="color:#a67c5b;"></i> English (fluent)</span>
+                            <span class="lang-item"><i class="fas fa-check-circle" style="color:#a67c5b;"></i> Bahasa Melayu (native)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WORK EXPERIENCE -->
+        <div class="card reveal">
+            <div class="card-header">
+                <i class="fas fa-sword"></i>
+                <h2>Work Experience <span class="sub">· Blade</span></h2>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem 2rem;">
+                <div class="exp-item">
+                    <h4>Bizlink Technology <span class="meta">PIE Technician</span></h4>
+                    <ul>
+                        <li>Support manufacturing: maintain & troubleshoot processes.</li>
+                        <li>Optimize workflow, preventive maintenance.</li>
+                        <li>Safety & quality compliance, accurate records.</li>
+                    </ul>
+                </div>
+                <div class="exp-item">
+                    <h4>Jinko SOLAR <span class="meta">Manufacturing Technician</span></h4>
+                    <ul>
+                        <li>Packing line leader: efficiency, safety, quality.</li>
+                        <li>Monitor workflow, enforce safety, quality checks.</li>
+                        <li>Lead by example, motivate team, end-of-shift reports.</li>
+                    </ul>
+                </div>
+                <div class="exp-item">
+                    <h4>Alliance Contract Manufacturing <span class="meta">Operator</span></h4>
+                    <ul>
+                        <li>Instruction on basic calibration equipment.</li>
+                        <li>Conduct mechanical & electrical equipment checks.</li>
+                        <li>Update data system, master list, control list.</li>
+                    </ul>
+                </div>
+                <div class="exp-item">
+                    <h4>SKOPE MANUFACTURING <span class="meta">Intern Technician</span></h4>
+                    <ul>
+                        <li>Engineering projects: mechanical, electrical, civil.</li>
+                        <li>Welding, wiring, plasma cutter, hand drill, fiber cutter.</li>
+                        <li>Palm shell crusher, beam crane, aluminium fence.</li>
+                    </ul>
+                </div>
+                <div class="exp-item" style="grid-column: 1 / -1;">
+                    <h4>SyamMotor <span class="meta">Part-time Mechanic</span></h4>
+                    <ul>
+                        <li>Inspect, maintain, repair vehicles/machinery.</li>
+                        <li>Routine servicing, troubleshooting, parts replacement.</li>
+                        <li>Safety & quality standards within flexible hours.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDUCATION (updated with Degree) -->
+        <div class="card reveal">
+            <div class="card-header">
+                <i class="fas fa-university"></i>
+                <h2>Education <span class="sub">· Training</span></h2>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                <div class="education-item">
+                    <strong><i class="fas fa-diploma demon-icon"></i> Degree in Electronic System</strong> <span class="date">2024 – 2028 (expected)</span>
+                    <span class="school">Universiti Malaysia Perlis (UniMAP) · Faculty of Electronic Engineering & Technology</span>
+                </div>
+                <div class="education-item">
+                    <strong><i class="fas fa-diploma demon-icon"></i> Diploma in Electronic</strong> <span class="date">2017 – 2022</span>
+                    <span class="school">Kolej Vokasional Nibong Tebal</span>
+                </div>
+                <div class="education-item">
+                    <strong><i class="fas fa-school demon-icon"></i> Secondary School</strong> <span class="date">2013 – 2016</span>
+                    <span class="school">SMK Datuk Haji Ahmad Said</span>
+                </div>
+            </div>
+            <div style="margin-top: 1.2rem; display: flex; gap: 0.8rem 2rem; flex-wrap: wrap; background: rgba(60, 40, 28, 0.2); padding: 0.6rem 1.2rem; border-radius: 40px; border: 1px solid #3f2a1e;">
+                <span><i class="fas fa-check-circle" style="color:#a67c5b;"></i> Fast learner</span>
+                <span><i class="fas fa-check-circle" style="color:#a67c5b;"></i> Team player</span>
+                <span><i class="fas fa-check-circle" style="color:#a67c5b;"></i> Multi-tasking</span>
+                <span><i class="fas fa-check-circle" style="color:#a67c5b;"></i> Friendly environment</span>
+                <span><i class="fas fa-fire" style="color:#b8734a;"></i> Flame Spirit</span>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <i class="fas fa-japanese-flag"></i> Demon Slayer · Electronic Technician · <i class="fas fa-heart" style="color:#b8734a;"></i> · Lukman Hakim
+        </div>
+    </div>
+
+    <!-- Particle animation (embers / flames) -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            const colors = ['#d68f5c', '#b8734a', '#8f5e3e', '#d4a373', '#e6b68b', '#c27e55'];
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.radius = Math.random() * 2.8 + 1.2;
+                    this.vx = (Math.random() - 0.5) * 0.3;
+                    this.vy = (Math.random() - 0.5) * 0.3 - 0.1;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.alpha = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.alpha -= 0.001;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) { this.vy *= -1; }
+                    if (this.alpha <= 0) {
+                        this.alpha = 0.4 + Math.random() * 0.3;
+                        this.x = Math.random() * width;
+                        this.y = Math.random() * height;
+                    }
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.globalAlpha = this.alpha * 0.8;
+                    ctx.shadowColor = '#d68f5c';
+                    ctx.shadowBlur = 12;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                    ctx.globalAlpha = 1.0;
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < 90; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            initParticles();
+
+            function drawLines() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 140) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = '#b8734a';
+                            ctx.globalAlpha = 0.06 * (1 - dist / 140);
+                            ctx.lineWidth = 0.8;
+                            ctx.stroke();
+                            ctx.globalAlpha = 1.0;
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let p of particles) {
+                    p.update();
+                    p.draw();
+                }
+                drawLines();
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                resize();
+                initParticles();
+            });
+        })();
+
+        // Intersection Observer for reveal
+        (function() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+            reveals.forEach(el => observer.observe(el));
+            if (reveals.length) reveals[0].classList.add('visible');
+        })();
+    </script>
+</body>
+</html>
